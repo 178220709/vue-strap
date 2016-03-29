@@ -11,11 +11,11 @@ Select data : {{single}}
         </pre>
       </p>
       <v-select :value.sync="single">
-        <v-option value="Apple"></v-option>
-        <v-option value="Banana"></v-option>
-        <v-option value="Cherry"></v-option>
-        <v-option value="Orange"></v-option>
-        <v-option value="Grape"></v-option>
+        <v-option value="Apple">Apple</v-option>
+        <v-option value="Banana">Banana</v-option>
+        <v-option value="Cherry">Cherry</v-option>
+        <v-option value="Orange">Orange</v-option>
+        <v-option value="Grape">Grape</v-option>
       </v-select>
       <hr>
       <h4>Multiple select</h4>
@@ -25,11 +25,11 @@ Select data : {{multiple.join(', ')}}
         </pre>
       </p>
       <v-select multiple :value.sync="multiple">
-        <v-option value="Apple"></v-option>
-        <v-option value="Banana"></v-option>
-        <v-option value="Cherry"></v-option>
-        <v-option value="Orange"></v-option>
-        <v-option value="Grape"></v-option>
+        <v-option value="Apple">Apple</v-option>
+        <v-option value="Banana">Banana</v-option>
+        <v-option value="Cherry">Cherry</v-option>
+        <v-option value="Orange">Orange</v-option>
+        <v-option value="Grape">Grape</v-option>
       </v-select>
       <hr>
       <h4>Multiple select limit</h4>
@@ -39,11 +39,11 @@ Select data : {{multipleLimit.join(', ')}}
         </pre>
       </p>
       <v-select multiple :limit="2" :value.sync="multipleLimit">
-        <v-option value="Apple"></v-option>
-        <v-option value="Banana"></v-option>
-        <v-option value="Cherry"></v-option>
-        <v-option value="Orange"></v-option>
-        <v-option value="Grape"></v-option>
+        <v-option value="Apple">Apple</v-option>
+        <v-option value="Banana">Banana</v-option>
+        <v-option value="Cherry">Cherry</v-option>
+        <v-option value="Orange">Orange</v-option>
+        <v-option value="Grape">Grape</v-option>
       </v-select>
       <hr>
       <h4>Custom template</h4>
@@ -66,32 +66,43 @@ Select data : {{custom.join(', ')}}
 Select data : {{arr}}
         </pre>
       </p>
-      <v-select :value.sync="arr" :options="fruitOptions" :search="true">
+      <v-select :value.sync="arr" :options="fruitOptions" :search="true" :close-on-select="true">
       </v-select>
+
+      <hr />
+      <h4>Automatically close array driven selects</h4>
+      <p>Using the property :close-on-select="true" array driven selects will auto-close after selecting an entry.</p>
+      <v-select :value.sync="arr2" :options="fruitOptions" :close-on-select="true">
+      </v-select>
+
+      <h4>Disabled selects</h4>
+      <v-select :value.sync="disabled" :options="fruitOptions" :close-on-select="true" :disabled="true">
+      </v-select>
+
     </div>
     <pre><code class="language-markup"><script type="language-mark-up">
 <v-select>
-  <v-option value="Apple"></v-option>
-  <v-option value="Banana"></v-option>
-  <v-option value="Cherry"></v-option>
-  <v-option value="Orange"></v-option>
-  <v-option value="Grape"></v-option>
+  <v-option value="Apple">Apple</v-option>
+  <v-option value="Banana">Banana</v-option>
+  <v-option value="Cherry">Cherry</v-option>
+  <v-option value="Orange">Orange</v-option>
+  <v-option value="Grape">Grape</v-option>
 </v-select>
 <hr>
 <v-select multiple>
-  <v-option value="Apple"></v-option>
-  <v-option value="Banana"></v-option>
-  <v-option value="Cherry"></v-option>
-  <v-option value="Orange"></v-option>
-  <v-option value="Grape"></v-option>
+  <v-option value="Apple">Apple</v-option>
+  <v-option value="Banana">Banana</v-option>
+  <v-option value="Cherry">Cherry</v-option>
+  <v-option value="Orange">Orange</v-option>
+  <v-option value="Grape">Grape</v-option>
 </v-select>
 <hr>
-<v-select multiple :limit="2">
-  <v-option value="Apple"></v-option>
-  <v-option value="Banana"></v-option>
-  <v-option value="Cherry"></v-option>
-  <v-option value="Orange"></v-option>
-  <v-option value="Grape"></v-option>
+ <v-select multiple :limit="2">
+  <v-option value="Apple">Apple</v-option>
+  <v-option value="Banana">Banana</v-option>
+  <v-option value="Cherry">Cherry</v-option>
+  <v-option value="Orange">Orange</v-option>
+  <v-option value="Grape">Grape</v-option>
 </v-select>
 <hr>
 <v-select multiple>
@@ -111,6 +122,8 @@ fruitOptions = [
   {value:'grape', label:'Grape'},
 ]
 
+<v-select :value.sync="arr2" :options="fruitOptions" :close-on-select="true">
+</v-select>
     </script></code></pre>
     <h2>Select Options</h2>
     <table class="table table-bordered">
@@ -147,6 +160,12 @@ fruitOptions = [
           <td><code>1024</code></td>
           <td>Limit the number of elements you are allowed to select.</td>
         </tr>
+        <tr>
+          <td>disabled</td>
+          <td><code>Boolean</code></td>
+          <td><code>false</code></td>
+          <td></td>
+        </tr>
       </tbody>
     </table>
 
@@ -164,17 +183,19 @@ fruitOptions = [
     data() {
       return {
         fruitOptions: [
-          {value:'apple', label:'Apple'},
-          {value:'banana', label:'Banana'},
-          {value:'cherry', label:'Cherry'},
-          {value:'orange', label:'Orange'},
-          {value:'grape', label:'Grape'},
+          {value:'Apple', label:'Apple'},
+          {value:'Banana', label:'Banana'},
+          {value:'Cherry', label:'Cherry'},
+          {value:'Orange', label:'Orange'},
+          {value:'Grape', label:'Grape'},
         ],
         arr: [],
+        arr2: [],
         single: [],
         multiple: [],
         multipleLimit: [],
-        custom: []
+        custom: [],
+        disabled: []
       }
     }
   }
